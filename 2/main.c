@@ -31,7 +31,7 @@ int main(void) {
     RCC_APB2ENR |= (1 << 2) | (1 << 4) |(1 << 14);
 
     // Read-Modify-Write for mode setting (0010) GPIOC 13
-    GPIOC_CRH &= ~(0xF << 20);    // 1) Set 1111 (0xf) from bit 20 to 23. 2) Reverse value 1 to 0, and vice versa. 3) Bit 20-23 reset to zero.  
+    GPIOC_CRH &= ~(0xF << 20);    // 1) Set 1111 (0xf) from bit 20 to 23. 2) Reverse value 1 to 0, and vice versa. 3) Bit 20-23 zset to zero.  
     GPIOC_CRH |= (0b0010 << 20);  // Fill bit 20-23.
 
     // GPIOA 9 for TX (1010), GPIOA 10 for RX (0100; Even though it's floating input by default, I set it to input mode for clarity)
@@ -53,7 +53,7 @@ int main(void) {
             __asm volatile("nop"); 
         }
 
-        USART1_DR = 'W'; // Transmit 'W'    
+        USART1_DR = 'W'; // Transmit 'H'    
 
 
         GPIOC_ODR |= (1 << 13);
